@@ -31,6 +31,7 @@ public class SecurityConfig {
                         .disable())
                 .authorizeHttpRequests((requests) -> requests
                                 .requestMatchers("/auth/**").permitAll()
+                                .requestMatchers("/css/**", "/js/**").permitAll()
                                 .requestMatchers("/movies/add", "/movies/delete", "/movies/update").hasRole("ADMIN")
                                 .anyRequest().authenticated()
                 )
