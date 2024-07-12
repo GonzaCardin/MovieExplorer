@@ -26,14 +26,15 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return  http
-                .csrf(csrf -> csrf
-                        .disable())
+        return http
+                .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests((requests) -> requests
-                                .requestMatchers("/auth/**").permitAll()
-                                .requestMatchers("/movies/add", "/movies/delete", "/movies/update").hasRole("ADMIN")
-                                .anyRequest().authenticated()
-                )
+                        .requestMatchers("/auth/**", "/register", "/login").permitAll() // Allow access
+                        .requestMatchers("/css/**", "/js/**").permitAll() // Allow static resources
+                        .requestMatchers("/favicon.ico", "/home").permitAll() // Allow favicon and home
+                        .requestMatchers("/movies/add", "/movies/delete", "/movies/update").hasRole("ADMIN") // Protected
+                                                                                                             // routes
+                        .anyRequest().authenticated()) // All other requests require authentication
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)

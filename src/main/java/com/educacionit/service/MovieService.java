@@ -94,4 +94,8 @@ public class MovieService {
         ///tirar excepcion
     }
 
+    public List<Movie> getAllMovies() {
+        return movieRepository.findAll();
+    }
+
 }

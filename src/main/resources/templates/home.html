@@ -1,0 +1,75 @@
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>Home - Movie Explorer</title>
+</head>
+
+<body>
+    <header>
+        <h1>Movie Explorer</h1>
+        <nav>
+            <a href="/login">Login</a>
+            <a href="/register">Register</a>
+        </nav>
+    </header>
+    <main>
+        <form id="search-form">
+            <input type="text" id="search-input" placeholder="Search by title...." required>
+            <button type="submit">Search</button>
+        </form>
+        <button id="addMovieBtn">Add movie</button>
+        <div class="movie-container">
+            <div th:each="movie : ${movies}" class="movie-card">
+                <img src="${movie.imageurl}" alt="Movie Poster">
+                <h2 th:text="${movie.title}"></h2>
+                <a href="@{/details/{id}(id=${movie.id})}">Details</a>
+                <button class="edit-button" data-id="${movie.id}" data-title="${movie.title}"
+                    data-website="${movie.website}" data-imageurl="${movie.imageurl}"
+                    th:data-genres="${movie.genres}">Edit movie</button>
+                <button class="delete-button" data-id="${movie.id}">Delete movie</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal Add Movie-->
+    <div id="addMovieModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Add movie</h2>
+            <form id="addMovieForm">
+                <input type="text" id="addTitleInput" placeholder="Title" required>
+                <input type="text" id="addWebsiteInput" placeholder="Website" required>
+                <input type="text" id="addGenresInput" placeholder="Genres (comma separated)" required>
+                <input type="text" id="addImageUrlInput" placeholder="Image URL" required>
+                <button type="submit">Add movie</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Edit Movie -->
+    <div id="editMovieModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Edit movie</h2>
+            <form id="editMovieForm">
+                <input type="text" id="editTitleInput" placeholder="Title" required>
+                <input type="text" id="editWebsiteInput" placeholder="Website" required>
+                <input type="text" id="editGenresInput" placeholder="Genres (comma separated)" required>
+                <input type="text" id="editImageUrlInput" placeholder="Image URL" required>
+                <button type="submit">Edit movie</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="../static/js/modals.js"></script>
+
+    <script src="../static/js/infinteScroll.js"></script>
+
+</body>
+
+</html>
