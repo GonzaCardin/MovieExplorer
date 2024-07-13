@@ -28,14 +28,15 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/auth/**", "/register", "/login").permitAll() // Allow access
-                        .requestMatchers("/css/**", "/js/**").permitAll() // Allow static resources
-                        .requestMatchers("/favicon.ico", "/home").permitAll() // Allow favicon and home
-                        .requestMatchers("/movies/add", "/movies/delete", "/movies/update").hasRole("ADMIN") // Protected
-                                                                                                             // routes
-                        .anyRequest().authenticated()) // All other requests require authentication
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(authRequest -> authRequest
+                        .requestMatchers("/auth/**", "/login", "/register").permitAll()
+                        .requestMatchers("/css/**", "**/js/**").permitAll()
+                        .requestMatchers("/favicon.ico", "/").permitAll()
+                        // .requestMatchers("/admin").hasRole("ADMIN")
+                        // .requestMatchers("/user").hasRole("USER")
+                        .anyRequest().authenticated())
+                .sessionManagement(sessionManager -> sessionManager
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling(exceptionHandler -> exceptionHandler
