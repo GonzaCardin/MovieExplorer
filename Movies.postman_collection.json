@@ -1,0 +1,196 @@
+{
+	"info": {
+		"_postman_id": "5191efdc-a768-47ea-9e82-f728dba4be38",
+		"name": "Movies",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "33759847"
+	},
+	"item": [
+		{
+			"name": "Obtener todas las películas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/movies/"
+			},
+			"response": []
+		},
+		{
+			"name": "AgregarPelicula",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\": \"Avengers: Endgame \",\r\n  \"website\": \"https://www.marvel.com/movies/avengers-endgame\",\r\n  \"imageurl\": \"https://i.pinimg.com/originals/a9/2a/ff/a92aff5991e20fb22eed9a7e4b3246f0.jpg\",\r\n  \"genresNames\": [\"Action\", \"Adventure\", \"Sci-Fi\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/movies/add"
+			},
+			"response": []
+		},
+		{
+			"name": "Detalle",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiXSwic3ViIjoiZWR1QGdtYWlsLmNvbSIsImlhdCI6MTcyMDc3MTYyMywiZXhwIjoxNzIwODU4MDIzfQ.qgu_dSGCZgwjFLnKywMpnmStI4Iq-FLsdAfMUvYAfaU"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/movies/details/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener Película por Título",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiXSwic3ViIjoiZWR1QGdtYWlsLmNvbSIsImlhdCI6MTcyMDc3MTYyMywiZXhwIjoxNzIwODU4MDIzfQ.qgu_dSGCZgwjFLnKywMpnmStI4Iq-FLsdAfMUvYAfaU"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/movies/search/title?title=Avengers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"movies",
+						"search",
+						"title"
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": "Avengers"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener Película por Género",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiXSwic3ViIjoiZWR1QGdtYWlsLmNvbSIsImlhdCI6MTcyMDc3MTYyMywiZXhwIjoxNzIwODU4MDIzfQ.qgu_dSGCZgwjFLnKywMpnmStI4Iq-FLsdAfMUvYAfaU"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/movies/search/genre?genre=Action",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"movies",
+						"search",
+						"genre"
+					],
+					"query": [
+						{
+							"key": "genre",
+							"value": "Action"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modificar Película por Id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiXSwic3ViIjoiZWR1QGdtYWlsLmNvbSIsImlhdCI6MTcyMDc3MTYyMywiZXhwIjoxNzIwODU4MDIzfQ.qgu_dSGCZgwjFLnKywMpnmStI4Iq-FLsdAfMUvYAfaU"
+					}
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\": \"Avengers 4: Endgame\",\r\n  \"website\": \"https://www.marvel.com/movies/avengers-endgame\",\r\n  \"imageurl\": \"https://i.pinimg.com/originals/a9/2a/ff/a92aff5991e20fb22eed9a7e4b3246f0.jpg\",\r\n  \"genresNames\": [\"Action\", \"Adventure\", \"Sci-Fi\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/movies/update/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar Película por Id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiXSwic3ViIjoiZWR1QGdtYWlsLmNvbSIsImlhdCI6MTcyMDc3MTcwMywiZXhwIjoxNzIwODU4MTAzfQ.HidhPUfJNkvVPOqHeo5s1b2JFEJ6HSS0IprYzQTkXRs"
+					}
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": "http://localhost:8080/movies/delete/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Registrarse",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"nachoroman@gmail.com\",\r\n    \"password\": \"1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/auth/register"
+			},
+			"response": []
+		},
+		{
+			"name": "Ingreso",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"gonza@gmail.com\",\r\n    \"password\": \"1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/auth/login"
+			},
+			"response": []
+		}
+	]
+}
