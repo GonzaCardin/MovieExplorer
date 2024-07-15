@@ -56,5 +56,7 @@ The frontend implementation is still in progress. The application will feature:
 
 - Java 17 or higher
 - Maven
-- PostgreSQL (or your chosen database)
+- MYSQL (or your chosen database)
+-   -> CREATE DATABASE movies.  <- Use this dml in MYSQL
+-   ->Change in application properties to your username and password database.
 - IDE (e.g., IntelliJ, Eclipse, VS code)
