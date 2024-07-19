@@ -1,37 +1,33 @@
-let page  = 0;
-const movieContainer = document.querySelector('.movie-container');
+document.addEventListener('DOMContentLoaded', function () {
+    let page = 1;
+    const movieList = document.getElementById('movieList');
 
-window.addEventListener('scroll', () => {
-    if(window.scrollY + window.innerHeight >= document.documentElement.scrollHeight) {
-        loadMoreMovies();
+    window.addEventListener('scroll', function () {
+        if (this.window.innerHeight + this.window.scrollY >= this.document.body.offsetHeight) {
+            page++;
+            fetchMoreMovies(page);
+        };
+    });
+    function fetchMoreMovies(page) {
+        fetch(`/movies?page=${page}`)
+            .then(resp => resp.json())
+            .then(data => {
+                data.forEach(movie => {
+                    const movieDiv = document.createElement('div');
+                    movieDiv.classList.add('col-12');
+                    movieDiv.innerHTML = `
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h4 class="card-title">${movie.title}</h4>
+                                <a href="/movies/details/${movie.id}" class="btn btn-primary">Details</a>
+                                <a href="/movies/update/${movie.id}" class="btn btn-warning">Edit</a>
+                                <a href="/movies/delete/${movie.id}" class="btn btn-danger">Delete</a>
+                            </div>
+                        </div>
+                    `;
+                    movieList.appendChild(movieDiv);
+                });
+            });
     }
 });
 
-function loadMoreMovies(){
-    fetch(`/movies?page=${page}`)
-        .then(response => response.json())
-        .then(data => {
-            data.forEach(movie => {
-                const movieCard = document.createElement('div');
-                movieCard.classList.add('movie-card');
-
-                const movieImage = document.createElement('img');
-                movieImage.src = movie.imageurl;
-                movieImage.alt = 'Movie Poster';
-                movieCard.appendChild(movieImage);
-
-                const movieTitle = document.createElement('h2');
-                movieTitle.textContent = movie.title;
-                movieCard.appendChild(movieTitle);
-
-                const detailsMovie = document.createElement('a');
-                detailsMovie.href = `/details/${movie.id}`;
-                detailsMovie.textContent = 'Details';
-                movieCard.appendChild(detailsMovie);
-
-                movieContainer.appendChild(movieCard);
-            });
-        })
-        .catch(error => console.error('Error loading more movies:', error));
-
-}

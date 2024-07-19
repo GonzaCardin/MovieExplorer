@@ -33,6 +33,7 @@ public class SecurityConfig {
                         .requestMatchers("/css/**", "**/js/**").permitAll()
                         .requestMatchers("/favicon.ico", "/").permitAll()
                         .requestMatchers("/swagger-ui/**").permitAll()
+                        .requestMatchers("/home").permitAll()
                         // .requestMatchers("/admin").hasRole("ADMIN")
                         // .requestMatchers("/user").hasRole("USER")
                         .anyRequest().authenticated())
