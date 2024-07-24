@@ -34,8 +34,6 @@ public class SecurityConfig {
                         .requestMatchers("/favicon.ico", "/").permitAll()
                         .requestMatchers("/swagger-ui/**").permitAll()
                         .requestMatchers("/home").permitAll()
-                        // .requestMatchers("/admin").hasRole("ADMIN")
-                        // .requestMatchers("/user").hasRole("USER")
                         .anyRequest().authenticated())
                 .sessionManagement(sessionManager -> sessionManager
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
